@@ -1,3 +1,7 @@
+Linkki websequencediagrams-palveluun: https://www.websequencediagrams.com/
+
+Kaavio:
+ 
 selain->palvelin: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note
 note over palvelin:
 Palvelin suorittaa koodin joka lisää
@@ -24,3 +28,4 @@ note over selain:
 selain suorittaa tapahtumankäsittelijän
 joka renderöi muistiinpanot näytölle
 end note
+
