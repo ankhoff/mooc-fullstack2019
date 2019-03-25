@@ -2,28 +2,29 @@ Linkki websequencediagrams-palveluun: https://www.websequencediagrams.com/
 
 Kaavio:
 
+title Tehtävä 0.6
 note over käyttäjä:
 Täyttää lomakkeen
 end note
 käyttäjä->selain: Submit
 note over selain:
-selain suorittaa tapahtumankäsittelijän
-joka lähettää HTTP-pyynnön.
-Pyyntö sisältä JSON-muodossa
-uuden muistiinpanon
+selain lisää lomakkeen sisällön sivulle ja
+suorittaa tapahtumankäsittelijän
+joka lähettää HTTP-pyynnön, jonka mukana 
+palvelimelle lähtee JSON-muodossa
+uusi muistiinpano
 end note
 selain->palvelin: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note_spa
-palvelin-->selain: JSON
-
-note over selain:
-selain alkaa suorittaa js-koodia
-joka pyytää JSON-datan palvelimelta
+note over palvelin:
+Palvelin suorittaa koodin joka lisää
+lomakkeen mukana lähetetyn datan
+'notes' taulukkoon
 end note
-
-selain->palvelin: HTTP GET https://fullstack-exampleapp.herokuapp.com/data.json
-palvelin-->selain: [{ content: "HTML on helppoa", date: "2019-01-01" }, ...]
+palvelin-->selain: HTTP-statuskoodi "201 created"
 
 note over selain:
-selain suorittaa tapahtumankäsittelijän
-joka renderöi muistiinpanot näytölle
+selaimessa suorittava js-koodi
+kirjoittaa konsoliin palvelimelta
+saattu JSON-vastauksen:
+{"message":"note created"}
 end note

@@ -1,7 +1,8 @@
 Linkki websequencediagrams-palveluun: https://www.websequencediagrams.com/
 
 Kaavio:
- 
+
+title Tehtävä 0.4
 selain->palvelin: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note
 note over palvelin:
 Palvelin suorittaa koodin joka lisää
