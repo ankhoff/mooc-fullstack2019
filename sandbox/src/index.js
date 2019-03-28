@@ -8,15 +8,13 @@ const Footer = () =>{
     )
 }
 
-const Hello = (props) => {
-    const name = props.name
-    const age = props.age
+const Hello = ({age, name}) => {
     const bornYear = () => new Date().getFullYear() - age
-    
+
     return (
       <div>
         <p>
-          Hello {props.name}, you are {props.age} years old
+          Hello {name}, you are {age} years old
         </p>
         <p>
             So you are were born {bornYear()}
@@ -32,7 +30,7 @@ const Hello = (props) => {
     return (
       <div>
         <h1>Greetings</h1>
-        <Hello name="Arto" age={26 + 10} />
+        <Hello name="Arto" age={25 + 10} />
         <Hello name={nimi} age={ika} />
         <Footer />
       </div>
