@@ -1,9 +1,17 @@
 import React, { useState } from 'react'
+import Rows from './components/Rows'
+import FilterForm from './components/FilterForm'
+import AddPersonForm from './components/AddPersonForm'
 
 const App = () => {
-  const [persons, setPersons] = useState([{ name: 'Arto Hellas', phone: '040-123456' }])
+  const [persons, setPersons] = useState([
+    { name: 'Arto Hellas', number: '040-123456' },
+    { name: 'Ada Lovelace', number: '39-44-5323523' },
+    { name: 'Dan Abramov', number: '12-43-234345' },
+    { name: 'Mary Poppendieck', number: '39-23-6423122' }
+  ])
   const [newName, setNewName] = useState('')
-  const [newPhone, setNewPhone] = useState('')
+  const [newNumber, setNewNumber] = useState('')
   const [newFilter, setNewFilter] = useState('')
 
   const addNewPerson = (event) => {
@@ -17,21 +25,21 @@ const App = () => {
 
     const person = {
       name: newName,
-      phone: newPhone
+      number: newNumber
     }
 
     setPersons(persons.concat(person))
     setNewName('')
-    setNewPhone('')
-    
+    setNewNumber('')
+
   }
 
   const createNewName = (event) => {
     setNewName(event.target.value)
   }
 
-  const createNewPhone = (event) => {
-    setNewPhone(event.target.value)
+  const createNewNumber = (event) => {
+    setNewNumber(event.target.value)
   }
 
   const createNewFilter = (event) => {
@@ -39,32 +47,18 @@ const App = () => {
     setNewFilter(event.target.value)
   }
 
-  const Person = ({ name, phone }) => <div>{name} {phone}</div>
+  //const Person = ({ name, phone }) => <div>{name} {phone}</div>
 
-  const Rows = () => persons.filter(person => person.name.includes(newFilter)).map(person => <Person key={person.name} name={person.name} phone={person.phone} />)
+  //const Rows = () => persons.filter(person => person.name.includes(newFilter)).map(person => <Person key={person.name} name={person.name} phone={person.phone} />)
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <form>
-        <div>
-          filter shown with: <input value={newFilter} onChange={createNewFilter} />
-        </div>
-      </form>
+      <FilterForm newFilter={newFilter} createNewFilter={createNewFilter} />
       <h2>Add new</h2>
-      <form>
-        <div>
-          name: <input value={newName} onChange={createNewName} />
-        </div>
-        <div>
-          phone: <input value={newPhone} onChange={createNewPhone} />
-        </div>
-        <div>
-          <button type="submit" onClick={addNewPerson}>add</button>
-        </div>
-      </form>
+      <AddPersonForm newName={newName} newNumber={newNumber} addNewPerson={addNewPerson} createNewName={createNewName} createNewNumber={createNewNumber} />
       <h2>Numbers</h2>
-      <Rows />
+      <Rows persons={persons} newFilter={newFilter} />
     </div>
 
   )
