@@ -10,8 +10,8 @@ const Country = ( { country } ) => {
             <div>capital { country.capital }</div>
             <div>population { country.population }</div>
             <h3>languages</h3>
-            <Languages languages={country.languages} />
-            <Flag flag = {country.flag} />
+            <Languages languages={ country.languages } />
+            <Flag flag={ country.flag } />
 
         </div >
     )
