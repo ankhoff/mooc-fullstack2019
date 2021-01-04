@@ -2,22 +2,19 @@ import React from 'react'
 import Rows from './Rows'
 import Country from './Country'
 
-const Result = ( { countries, manualSet } ) => {
+const Result = ( { countries, manualSet, weather } ) => {
     if ( countries.length > 10 ) {
-        console.log( "more then 10 cases" )
         return (
             <div>Too many matches, specify another filter</div>
         )
     } else if ( countries.length > 1 ) {
-        console.log( "less then 10 cases" )
         return (
             < Rows countries={ countries } manualSet={ manualSet } />
         )
 
-    } else if ( countries.length === 1 ) {
-        console.log( "only one result: ", countries[0] )
+    } else if ( countries.length === 1 && Object.keys(weather).length !== 0 && weather.constructor === Object ) {
         return (
-            < Country country={ countries[0] } />
+            < Country country={ countries[0] } weather = {weather} />
         )
     } else {
         return (

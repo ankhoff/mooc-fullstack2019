@@ -3,24 +3,37 @@ import FindCountryForm from './components/FindCountryForm'
 import Result from './components/Result'
 import axios from 'axios'
 
+require( 'dotenv' ).config()
+
 function App () {
   const [countries, setCountries] = useState( [] )
   const [searchTerm, setSearchTerm] = useState( '' )
   const [searchResult, setSearchResult] = useState( [] )
+  const [weather, setWeather] = useState( {} )
 
-  const eventHandler = ( response ) => {
-    console.log( 'response.data: ', response.data )
-    setCountries( response.data )
-  }
+  const api_key = process.env.REACT_APP_API_KEY
+  const baseURL = 'http://api.weatherstack.com/'
+  const pack = 'current'
 
   useEffect( () => {
     axios
       .get( 'https://restcountries.eu/rest/v2/all' )
-      .then( eventHandler )
+      .then( response => {
+        setCountries( response.data )
+      } )
   }, [] )
 
+  useEffect( () => {
+    if ( searchResult.length === 1 ) {
+      axios
+        .get( baseURL + pack + '?access_key=' + api_key + '&query=' + searchResult[0].capital )
+        .then( response => {
+          setWeather( response.data )
+        } )
+    }
+  }, [searchResult] )
+
   const newSearchTerm = ( event ) => {
-    console.log( 'searchTerm: ', event.target.value )
     const searchTermMatches = countries.filter( country => country.name.toLowerCase().includes( event.target.value.toLowerCase() ) )
     setSearchTerm( event.target.value )
     setSearchResult( searchTermMatches );
@@ -29,7 +42,7 @@ function App () {
   return (
     <div>
       <FindCountryForm searchTerm={ searchTerm } createNewSearchTerm={ newSearchTerm } />
-      <Result countries={ searchResult } manualSet={ newSearchTerm } />
+      <Result countries={ searchResult } manualSet={ newSearchTerm } weather={ weather } />
     </div>
   );
 }
